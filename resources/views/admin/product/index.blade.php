@@ -22,6 +22,30 @@
             color: white;
             font-weight: bold;
         }
+
+         .dataTables_length label {
+            color: #792df3 !important;
+            /* Force the color */
+            font-weight: bold;
+        }
+
+        .table-button-design {
+            margin-top: 10px !important;
+            background: #792df3 !important;
+            color: white !important;
+            padding: 8px 16px !important;
+            /* border-radius: 6px !important; */
+            box-shadow: none !important;
+            border: none !important;
+            font-weight: bold !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+        }
+
+        .dt-buttons {
+            margin: 0 !important;
+            width: 100% !important;
+        }
     </style>
 
     <div class="max-w-7xl mx-auto mt-10">
@@ -74,8 +98,8 @@
 
             <!-- Table -->
             <div class="overflow-x-auto">
-                <table class="w-full bg-white border border-gray-200 rounded-lg" id="productTable">
-                    <thead class="bg-gray-50">
+                <table class="w-full bg-white border border-gray-200" id="productTable">
+                    <thead class="">
                         <tr>
                             <th class="px-6 py-3 text-left text-md font-bold">S/L</th>
                             <th class="px-6 py-3 text-left text-md font-bold">Name</th>
@@ -83,7 +107,7 @@
                             <th class="px-6 py-3 text-left text-md font-bold">Action</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-gray-200">
+                    <tbody class="border border-gray-200">
 
                     </tbody>
                 </table>
@@ -189,16 +213,50 @@
                 serverSide: true,
                 ajax: "{{ route('products.list') }}",
                 columns: [{
-                        data: 'id'
+                        data: 'id',
+                        className: " border border-gray-200"
                     },
                     {
-                        data: 'name'
+                        data: 'name',
+                        className: "border border-gray-200"
                     },
                     {
                         data: 'status',
+                        className: "border border-gray-200"
                     },
                     {
                         data: 'action',
+                        className: "border border-gray-200"
+                    }
+                ],
+                lengthMenu: [10, 20, 50, 100],
+                pageLength: 10,
+                dom: 'lBfrtip', // Enables buttons
+                buttons: [{
+                        extend: 'copy',
+                        text: 'Copy',
+                        className: "table-button-design"
+                    },
+                    {
+                        extend: 'csv',
+                        text: 'Export to CSV',
+                        className: "custom-button",
+                        className: "table-button-design"
+                    },
+                    {
+                        extend: 'excel',
+                        text: 'Export to Excel',
+                        className: "table-button-design"
+                    },
+                    {
+                        extend: 'print',
+                        text: '🖨️ Print',
+                        className: "table-button-design"
+                    },
+                    {
+                        extend: 'colvis',
+                        text: 'Column Visibility',
+                        className: "table-button-design"
                     }
                 ]
             });
