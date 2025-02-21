@@ -25,21 +25,40 @@
     </style>
 
     <div class="max-w-7xl mx-auto mt-10">
-        <h1 class="text-2xl font-semibold mb-6">Products</h1>
+        <h1 class="text-2xl font-semibold mb-6">Purchase Orders</h1>
 
         <div class="bg-white p-5 rounded-lg shadow overflow-hidden">
             <!-- Top Controls -->
             <div class="flex flex-wrap justify-between items-center mb-4">
-                <button id="openModalBtn" class="bg-[#792df3] text-white px-4 py-2 rounded-md hover:bg-purple-700 transition-colors flex items-center">
-                    Create Products
-                    <span class="ml-1">+</span>
-                </button>
+                <a href="{{route('purchase.create')}}" class="bg-[#792df3] px-4 py-2 text-white rounded-md hover:bg-purple-700">Create Purchase +</a>
             </div>
             <hr class="p-5" />
 
             <!-- Table Controls -->
             <div class="flex flex-wrap gap-4 mb-4 items-center">
+                <div class="grid grid-cols-12 gap-4 mb-6">
+                    <div class="col-span-6 md:col-span-3">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Supplier <span class="text-red-500">*</span></label>
+                        <select id="product" class="w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500">
+                            <option value="">Search Name of Product</option>
 
+                        </select>
+                    </div>
+
+                    <div class="col-span-6 md:col-span-3">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Start Date <span class="text-red-500">*</span></label>
+                        <input type="date" id="date" class="w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500">
+                    </div>
+
+                    <div class="col-span-6 md:col-span-3">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">End Date <span class="text-red-500">*</span></label>
+                        <input type="date" id="date" class="w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500">
+                    </div>
+
+                    <div class="col-span-12 md:col-span-2 flex items-end">
+                        <button id="addProduct" class="w-full bg-purple-600 text-white p-2 rounded-md hover:bg-purple-700 transition-colors">Search</button>
+                    </div>
+                </div>
                 <div class="flex gap-2">
                     <button class="px-3 py-1 bg-[#792df3] text-white rounded hover:bg-purple-700">Copy</button>
                     <button class="px-3 py-1 bg-[#792df3] text-white rounded hover:bg-purple-700">Export to CSV</button>

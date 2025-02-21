@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\SupplierController;
 
 Route::get('/', function () {
@@ -28,6 +29,13 @@ Route::middleware('auth')->group(function () {
         Route::get('/', 'index')->name('products.index');
         Route::get('/list', 'getProducts')->name('products.list');
         Route::post('/store', 'store')->name('products.store');
+    });
+
+    Route::controller(PurchaseController::class)->prefix('purchase')->group(function () {
+        Route::get('/', 'index')->name('purchase.index');
+        Route::get('/create', 'create')->name('purchase.create');
+        Route::get('/list', 'getPurchases')->name('purchase.list');
+        Route::post('/store', 'store')->name('purchase.store');
     });
 });
 
