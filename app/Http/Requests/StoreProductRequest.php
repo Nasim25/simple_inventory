@@ -11,7 +11,7 @@ class StoreProductRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,16 @@ class StoreProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name'    => ['required', 'string', 'max:255'],
+            'status'  => ['required', 'boolean']
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'name.required'   => 'The name is required.',
+            'status.required' => 'Status is required.'
         ];
     }
 }

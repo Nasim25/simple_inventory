@@ -1,8 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SupplierController;
-use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
@@ -21,6 +22,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/', 'index')->name('supplier.index');
         Route::get('/list', 'getSuppliers')->name('suppliers.list');
         Route::post('/store', 'store')->name('suppliers.store');
+    });
+
+    Route::controller(ProductController::class)->prefix('products')->group(function () {
+        Route::get('/', 'index')->name('products.index');
+        Route::get('/list', 'getProducts')->name('products.list');
+        Route::post('/store', 'store')->name('products.store');
     });
 });
 
