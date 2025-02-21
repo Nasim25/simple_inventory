@@ -13,8 +13,13 @@ class Purchase extends Model
         return $this->belongsTo(Supplier::class);
     }
 
-    public function details()
+    public function purchaseDetails()
     {
         return $this->hasMany(PurchaseDetail::class);
+    }
+
+    public function getFormattedIdAttribute()
+    {
+        return 'PO-' . str_pad($this->id, 4, '0', STR_PAD_LEFT);
     }
 }

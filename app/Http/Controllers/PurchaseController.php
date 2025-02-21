@@ -6,6 +6,7 @@ use Throwable;
 use App\Models\Product;
 use App\Models\Purchase;
 use App\Models\Supplier;
+use Illuminate\Http\Request;
 use App\Models\PurchaseDetail;
 use App\Services\PurchaseService;
 use Illuminate\Http\JsonResponse;
@@ -18,7 +19,17 @@ class PurchaseController extends Controller
 
     public function index()
     {
-        return view('admin.purchase.index');
+        $data['suppliers'] = Supplier::where('status', 1)->get();
+        return view('admin.purchase.index', $data);
+    }
+
+    public function getPurchases(Request $request): JsonResponse
+    {
+        if ($request->ajax()) {
+            return $this->purchaseService->getPurchasesData();
+        }
+
+        return response()->json(['message' => 'Invalid request'], 400);
     }
 
     public function create()
@@ -27,6 +38,7 @@ class PurchaseController extends Controller
         $data['suppliers'] = Supplier::where('status', 1)->get();
         return view('admin.purchase.create', $data);
     }
+
     public function store(StorePurchaseRequest $request): JsonResponse
     {
         try {

@@ -37,22 +37,24 @@
             <!-- Table Controls -->
             <div class="flex flex-wrap gap-4 mb-4 items-center">
                 <div class="grid grid-cols-12 gap-4 mb-6">
-                    <div class="col-span-6 md:col-span-3">
+                    <div class="col-span-6 md:col-span-4">
                         <label class="block text-sm font-medium text-gray-700 mb-1">Supplier <span class="text-red-500">*</span></label>
-                        <select id="product" class="w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500">
-                            <option value="">Search Name of Product</option>
-
+                        <select id="supplier_id" name="supplier_id" class="w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500">
+                            <option value="">All Supplier</option>
+                            @foreach ($suppliers as $supplier)
+                            <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
+                            @endforeach
                         </select>
                     </div>
 
                     <div class="col-span-6 md:col-span-3">
                         <label class="block text-sm font-medium text-gray-700 mb-1">Start Date <span class="text-red-500">*</span></label>
-                        <input type="date" id="date" class="w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500">
+                        <input type="date" id="start_date" name="start_date" class="w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500">
                     </div>
 
                     <div class="col-span-6 md:col-span-3">
                         <label class="block text-sm font-medium text-gray-700 mb-1">End Date <span class="text-red-500">*</span></label>
-                        <input type="date" id="date" class="w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500">
+                        <input type="date" id="end_date" name="end_date" class="w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500">
                     </div>
 
                     <div class="col-span-12 md:col-span-2 flex items-end">
@@ -93,12 +95,17 @@
 
             <!-- Table -->
             <div class="overflow-x-auto">
-                <table class="w-full bg-white border border-gray-200 rounded-lg" id="productTable">
+                <table class="w-full bg-white border border-gray-200 rounded-lg" id="purchaseTable">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th class="px-6 py-3 text-left text-md font-bold">S/L</th>
-                            <th class="px-6 py-3 text-left text-md font-bold">Name</th>
+                            <th class="px-6 py-3 text-left text-md font-bold">Order No</th>
+                            <th class="px-6 py-3 text-left text-md font-bold">Date</th>
+                            <th class="px-6 py-3 text-left text-md font-bold">Supplier</th>
+                            <th class="px-6 py-3 text-left text-md font-bold">Total</th>
+                            <th class="px-6 py-3 text-left text-md font-bold">Paid</th>
+                            <th class="px-6 py-3 text-left text-md font-bold">Due</th>
                             <th class="px-6 py-3 text-left text-md font-bold">Status</th>
+                            <th class="px-6 py-3 text-left text-md font-bold">Notes</th>
                             <th class="px-6 py-3 text-left text-md font-bold">Action</th>
                         </tr>
                     </thead>
@@ -203,21 +210,49 @@
     <script>
         $(document).ready(function() {
 
-            let table = $('#productTable').DataTable({
+            $('#purchaseTable').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('products.list') }}",
+                ajax: {
+                    url: "{{ route('purchase.list') }}",
+                    type: "GET"
+                },
+
                 columns: [{
-                        data: 'id'
+                        data: "id",
+                        title: "Order No"
                     },
                     {
-                        data: 'name'
+                        data: "date",
+                        title: "Date"
                     },
                     {
-                        data: 'status',
+                        data: "supplier",
+                        title: "Supplier"
                     },
                     {
-                        data: 'action',
+                        data: "total",
+                        title: "Total"
+                    },
+                    {
+                        data: "paid",
+                        title: "Paid"
+                    },
+                    {
+                        data: "total",
+                        title: "Due"
+                    },
+                    {
+                        data: "status",
+                        title: "Status"
+                    },
+                    {
+                        data: "notes",
+                        title: "Notes"
+                    },
+                    {
+                        data: "action",
+                        title: "Action"
                     }
                 ]
             });
