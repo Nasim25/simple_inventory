@@ -52,4 +52,13 @@ class SupplierController extends Controller
             'supplier' => $supplier
         ], 201);
     }
+
+    public function destroy($supplier_id): JsonResponse
+    {
+        $this->supplierService->deleteSupplier($supplier_id);
+
+        return response()->json([
+            'message' => 'Supplier deleted successfully!'
+        ], 200);
+    }
 }

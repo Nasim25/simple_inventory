@@ -48,7 +48,7 @@
             <form id="supplierForm">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="space-y-4">
-                    
+
                     <div class="grid grid-cols-3 items-center gap-4">
                         <label class="text-right">
                             Name <span class="text-red-500 ml-0.5">*</span>
@@ -65,7 +65,7 @@
 
                     </div>
 
-                    
+
                     <div class="grid grid-cols-3 items-center gap-4">
                         <label class="text-right">
                             Mobile No. <span class="text-red-500 ml-0.5">*</span>
@@ -82,7 +82,7 @@
 
                     </div>
 
-                    
+
                     <div class="grid grid-cols-3 items-center gap-4">
                         <label class="text-right">Email</label>
                         <div class="w-full col-span-2">
@@ -96,7 +96,7 @@
 
                     </div>
 
-                    
+
                     <div class="grid grid-cols-3 items-start gap-4">
                         <label class="text-right pt-2">Address</label>
                         <div class="w-full col-span-2">
@@ -109,7 +109,7 @@
 
                     </div>
 
-                    
+
                     <div class="grid grid-cols-3 items-center gap-4">
                         <label class="text-right">
                             Status <span class="text-red-500 ml-0.5">*</span>
@@ -261,7 +261,6 @@
                 });
             });
 
-
             $.ajaxSetup({
                 headers: {
                     "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
@@ -319,6 +318,38 @@
                                 confirmButtonText: "OK"
                             });
                         }
+                    }
+                });
+            });
+
+            // supplier delete method
+            $(document).on("click", ".deleteSupplierBtn", function() {
+                let supplierId = $(this).data("id");
+
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#3085d6",
+                    confirmButtonText: "Yes, delete it!"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: `/supplier/delete/${supplierId}`,
+                            type: "DELETE",
+                            data: {
+                                _token: "{{ csrf_token() }}" // Add CSRF token if needed
+                            },
+                            success: function(response) {
+                                Swal.fire("Deleted!", "Supplier has been deleted.", "success");
+                                table.ajax.reload(null, false); // Reload table without refresh
+                            },
+                            error: function(xhr) {
+                                Swal.fire("Error!", "Something went wrong!", "error");
+                            }
+                        });
                     }
                 });
             });
