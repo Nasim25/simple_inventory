@@ -23,7 +23,7 @@ class SupplierService
             ->addColumn(
                 'action',
                 fn($supplier) =>
-                '<button class="edit btn btn-sm bg-[#792df3] text-white px-2 py-1 rounded" data-id="' . $supplier->id . '"><i class="fa fa-edit"></i></button>
+                '<button class="editSupplier edit btn btn-sm bg-[#792df3] text-white px-2 py-1 rounded" data-id="' . $supplier->id . '"><i class="fa fa-edit"></i></button>
                 <button class="delete btn btn-sm bg-red-500 text-white px-2 py-1 rounded" data-id="' . $supplier->id . '"><i class="fa fa-trash"></i></button>'
             )
             ->rawColumns(['status', 'action'])
@@ -33,5 +33,17 @@ class SupplierService
     public function createSupplier(array $data): Supplier
     {
         return $this->supplier->create($data);
+    }
+
+    public function getSupplierById(int $id): Supplier
+    {
+        return $this->supplier->findOrFail($id);
+    }
+
+    public function updateSupplier(array $data, int $id): bool
+    {
+        $supplier = $this->getSupplierById($id);
+
+        return $supplier->update($data);
     }
 }

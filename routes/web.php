@@ -22,7 +22,9 @@ Route::middleware('auth')->group(function () {
     Route::controller(SupplierController::class)->prefix('supplier')->group(function () {
         Route::get('/', 'index')->name('supplier.index');
         Route::get('/list', 'getSuppliers')->name('suppliers.list');
+        Route::get('/edit/{id}', 'edit')->name('suppliers.edit');
         Route::post('/store', 'store')->name('suppliers.store');
+        Route::put('/update/{id}', 'update')->name('suppliers.update');
     });
 
     Route::controller(ProductController::class)->prefix('products')->group(function () {

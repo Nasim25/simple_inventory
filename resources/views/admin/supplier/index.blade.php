@@ -3,7 +3,7 @@
         <h1 class="text-2xl font-semibold mb-6">Supplier</h1>
 
         <div class="bg-white p-5 rounded-lg shadow overflow-hidden">
-            <!-- Top Controls -->
+
             <div class="flex flex-wrap justify-between items-center mb-4">
                 <button id="openModalBtn" class="bg-[#792df3] text-white px-4 py-2 rounded-md hover:bg-purple-700 transition-colors flex items-center">
                     Create Supplier
@@ -35,7 +35,7 @@
     </div>
 
 
-    <!-- Modal (Initially Hidden) -->
+    <!-- Modal -->
     <div id="myModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
         <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl mx-4 p-6">
             <!-- Modal Header -->
@@ -48,56 +48,68 @@
             <form id="supplierForm">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="space-y-4">
-                    <!-- Name -->
+                    
                     <div class="grid grid-cols-3 items-center gap-4">
                         <label class="text-right">
                             Name <span class="text-red-500 ml-0.5">*</span>
                         </label>
-                        <input
-                            type="text"
-                            name="name"
-                            id="name"
-                            placeholder="Enter Name"
-                            class="col-span-2 w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-purple-500"
-                            required>
+                        <div class="w-full col-span-2">
+                            <input
+                                type="text"
+                                name="name"
+                                id="name"
+                                placeholder="Enter Name"
+                                class=" w-full px-3 border rounded-md focus:outline-none focus:ring-1 focus:ring-purple-500"
+                                required>
+                        </div>
+
                     </div>
 
-                    <!-- Mobile -->
+                    
                     <div class="grid grid-cols-3 items-center gap-4">
                         <label class="text-right">
                             Mobile No. <span class="text-red-500 ml-0.5">*</span>
                         </label>
-                        <input
-                            type="tel"
-                            placeholder="Enter Mobile No."
-                            name="phone"
-                            id="phone"
-                            class="col-span-2 w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-purple-500"
-                            required>
+                        <div class="w-full col-span-2">
+                            <input
+                                type="tel"
+                                placeholder="Enter Mobile No."
+                                name="phone"
+                                id="phone"
+                                class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-purple-500"
+                                required>
+                        </div>
+
                     </div>
 
-                    <!-- Email -->
+                    
                     <div class="grid grid-cols-3 items-center gap-4">
                         <label class="text-right">Email</label>
-                        <input
-                            type="email"
-                            name="email"
-                            id="email"
-                            placeholder="Enter Email"
-                            class="col-span-2 w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-purple-500">
+                        <div class="w-full col-span-2">
+                            <input
+                                type="email"
+                                name="email"
+                                id="email"
+                                placeholder="Enter Email"
+                                class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-purple-500">
+                        </div>
+
                     </div>
 
-                    <!-- Address -->
+                    
                     <div class="grid grid-cols-3 items-start gap-4">
                         <label class="text-right pt-2">Address</label>
-                        <textarea
-                            name="address"
-                            id="address"
-                            placeholder="Enter address"
-                            class="col-span-2 w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-purple-500 h-24"></textarea>
+                        <div class="w-full col-span-2">
+                            <textarea
+                                name="address"
+                                id="address"
+                                placeholder="Enter address"
+                                class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-purple-500 h-24"></textarea>
+                        </div>
+
                     </div>
 
-                    <!-- Status -->
+                    
                     <div class="grid grid-cols-3 items-center gap-4">
                         <label class="text-right">
                             Status <span class="text-red-500 ml-0.5">*</span>
@@ -130,13 +142,13 @@
         </div>
     </div>
 
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
     <script>
         $(document).ready(function() {
-            // Open Modal
+
             $("#openModalBtn").click(function() {
+                resetFormErrors();
+                $("#supplierForm")[0].reset();
+                $("#supplierForm").removeAttr("data-id");
                 $("#myModal").removeClass("hidden");
             });
 
@@ -154,13 +166,6 @@
                     $("#myModal").addClass("hidden");
                 }
             });
-        });
-    </script>
-
-
-
-    <script>
-        $(document).ready(function() {
 
             let table = $('#supplierTable').DataTable({
                 processing: true,
@@ -228,6 +233,33 @@
                 ]
             });
 
+            function resetFormErrors() {
+                $(".error").remove(); // Remove error messages
+                $("input, textarea").removeClass("border-red-500"); // Reset input styles
+            }
+            // Open Edit Modal and Populate Data
+            $(document).on("click", ".editSupplier", function() {
+                resetFormErrors();
+                let supplierId = $(this).data("id");
+
+                $.ajax({
+                    url: `/supplier/edit/${supplierId}`,
+                    type: "GET",
+                    success: function(response) {
+                        console.log(response.supplier);
+                        $("#supplierForm input[name='name']").val(response.supplier.name);
+                        $("#supplierForm input[name='phone']").val(response.supplier.phone);
+                        $("#supplierForm input[name='email']").val(response.supplier.email);
+                        $("#supplierForm textarea[name='address']").val(response.supplier.address);
+                        $("input[name='status'][value='" + response.supplier.status + "']").prop("checked", true);
+                        $("#supplierForm").attr("data-id", supplierId); // Set form data-id attribute
+                        $("#myModal").removeClass("hidden");
+                    },
+                    error: function() {
+                        alert("Failed to fetch supplier data.");
+                    }
+                });
+            });
 
 
             $.ajaxSetup({
@@ -240,12 +272,19 @@
             $("#supplierForm").submit(function(e) {
                 e.preventDefault();
 
+                let supplierId = $(this).attr("data-id") || null;
                 let formData = new FormData(this);
-                formData.append("_token", $("input[name='_token']").val());
+
+                if (supplierId) {
+                    formData.append("_method", "PUT");
+                }
+
+                let url = supplierId ? `/supplier/update/${supplierId}` : "{{ route('suppliers.store') }}";
+                let method = "POST";
 
                 $.ajax({
-                    url: "{{ route('suppliers.store') }}",
-                    type: "POST",
+                    url: url,
+                    type: method,
                     data: formData,
                     processData: false,
                     contentType: false,
@@ -254,17 +293,36 @@
                         $("#supplierForm")[0].reset();
                         Swal.fire({
                             title: "Success!",
-                            text: "Supplier created successfully!",
+                            text: supplierId ? "Supplier updated successfully!" : "Supplier created successfully!",
                             icon: "success",
                             confirmButtonText: "OK"
                         });
                         table.ajax.reload(null, false);
                     },
                     error: function(xhr) {
-                        alert("Something went wrong!");
+                        if (xhr.status === 422) {
+                            resetFormErrors();
+                            let errors = xhr.responseJSON.errors;
+
+                            $.each(errors, function(field, messages) {
+                                let inputField = $(`[name="${field}"]`);
+
+                                inputField.addClass("border-red-500");
+
+                                inputField.after(`<span class=" text-sm text-red-600 error ">${messages[0]}</span>`);
+                            });
+                        } else {
+                            Swal.fire({
+                                title: "Errod!",
+                                text: "Soemthing went wrong!",
+                                icon: "error",
+                                confirmButtonText: "OK"
+                            });
+                        }
                     }
                 });
             });
+
         });
     </script>
 

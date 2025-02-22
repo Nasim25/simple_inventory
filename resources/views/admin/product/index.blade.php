@@ -93,11 +93,9 @@
     </div>
 
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
     <script>
         $(document).ready(function() {
-            // Open Modal
+
             $("#openModalBtn").click(function() {
                 $("#myModal").removeClass("hidden");
             });
@@ -116,13 +114,6 @@
                     $("#myModal").addClass("hidden");
                 }
             });
-        });
-    </script>
-
-
-
-    <script>
-        $(document).ready(function() {
 
             let table = $('#productTable').DataTable({
                 processing: true,
