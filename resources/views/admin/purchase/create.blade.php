@@ -55,8 +55,9 @@
                         </table>
                     </div>
 
-                    <div class="mt-6 flex justify-start space-x-4">
-                        <button id="savePurchase" class="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors">Save</button>
+                    <div class="mt-6 flex justify-between space-x-4">
+                        <button id="savePurchase" class="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors items-start ">Save</button>
+                        <a href="{{ route('purchase.index') }}" class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors content-end ">Cancel</a>
                     </div>
                 </div>
             </div>

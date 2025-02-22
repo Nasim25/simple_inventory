@@ -20,7 +20,7 @@
                             <th class="px-6 py-3 text-left text-md font-bold">S/L</th>
                             <th class="px-6 py-3 text-left text-md font-bold">Name</th>
                             <th class="px-6 py-3 text-left text-md font-bold">Status</th>
-                            <th class="px-6 py-3 text-left text-md font-bold">Action</th>
+                            <th class="w-20 px-6 py-3 text-left text-md font-bold">Action</th>
                         </tr>
                     </thead>
                     <tbody class="border border-gray-200">

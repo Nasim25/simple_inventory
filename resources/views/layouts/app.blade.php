@@ -18,7 +18,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
+
     <link rel="stylesheet" href="{{ asset('assets/style.css') }}">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])

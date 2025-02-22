@@ -30,10 +30,13 @@ class PurchaseService
             ->addColumn('status', fn($purchase) => $purchase->purchaseDetails->isNotEmpty() ? 'Completed' : 'Pending')
             ->editColumn('date', fn($purchase) => $purchase->date)
             ->addColumn('notes', fn($purchase) => $purchase->notes ?? '-')
-            ->addColumn('action', fn($purchase) => sprintf(
-                '<a href="%s" class="btn btn-sm btn-primary">View</a>',
-                route('purchase.view', $purchase->id)
-            ))
+            ->addColumn(
+                'action',
+                fn($purchase) => sprintf(
+                    '<a href="%s" class="deleteProduct btn btn-sm bg-[#792df3] text-white px-2 py-1 rounded"><i class="fa-solid fa-eye"></i></a>',
+                    route('purchase.view', $purchase->id)
+                )
+            )
             ->make(true);
     }
 

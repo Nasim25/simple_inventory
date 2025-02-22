@@ -164,7 +164,7 @@
                         extend: 'colvis',
                         text: '<i class="fa-solid fa-eye"></i> Column Visibility',
                         className: "table-button-design"
-                    }
+                    },
                 ],
                 language: {
                     paginate: {
