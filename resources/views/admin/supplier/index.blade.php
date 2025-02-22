@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="max-w-7xl mx-auto mt-10 pb-20">
+    <div class="min-h-screen p-4 md:p-6 lg:p-8 pb-10">
         <h1 class="text-2xl font-semibold mb-6">Supplier</h1>
 
         <div class="bg-white p-5 rounded-lg shadow overflow-hidden">
@@ -14,7 +14,7 @@
 
             <!-- Table -->
             <div class="overflow-x-auto">
-                <table class="w-full bg-white border border-gray-200 rounded-lg" id="supplierTable">
+                <table class="bg-white border border-gray-200 rounded-lg" id="supplierTable">
                     <thead>
                         <tr>
                             <th class="px-6 py-3 text-left text-md font-bold">S/L</th>
@@ -23,7 +23,7 @@
                             <th class="px-6 py-3 text-left text-md font-bold">Email</th>
                             <th class="px-6 py-3 text-left text-md font-bold">Address</th>
                             <th class="px-6 py-3 text-left text-md font-bold">Status</th>
-                            <th class="px-6 py-3 text-left text-md font-bold">Action</th>
+                            <th class="w-20 px-6 py-3 text-left text-md font-bold">Action</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
@@ -177,11 +177,11 @@
                     },
                     {
                         data: 'name',
-                        className: " border border-gray-200"
+                        className: "border border-gray-200"
                     },
                     {
                         data: 'phone',
-                        className: " border border-gray-200"
+                        className: "border border-gray-200"
                     },
                     {
                         data: 'email',
@@ -230,7 +230,15 @@
                         text: '<i class="fa-solid fa-eye"></i> Column Visibility',
                         className: "table-button-design"
                     }
-                ]
+                ],
+                language: {
+                    paginate: {
+                        first: '<span class="px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">First</span>',
+                        previous: '<span class="px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Previous</span>',
+                        next: '<span class="px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Next</span>',
+                        last: '<span class="px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Last</span>'
+                    }
+                }
             });
 
             function resetFormErrors() {
@@ -246,7 +254,7 @@
                     url: `/supplier/edit/${supplierId}`,
                     type: "GET",
                     success: function(response) {
-    
+
                         $("#supplierForm input[name='name']").val(response.supplier.name);
                         $("#supplierForm input[name='phone']").val(response.supplier.phone);
                         $("#supplierForm input[name='email']").val(response.supplier.email);

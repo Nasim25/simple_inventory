@@ -26,7 +26,7 @@ class PurchaseController extends Controller
     public function getPurchases(Request $request): JsonResponse
     {
         if ($request->ajax()) {
-            return $this->purchaseService->getPurchasesData();
+            return $this->purchaseService->getPurchasesData($request);
         }
 
         return response()->json(['message' => 'Invalid request'], 400);

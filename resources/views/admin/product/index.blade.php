@@ -1,6 +1,6 @@
 <x-app-layout>
 
-    <div class="max-w-7xl mx-auto mt-10 pb-20">
+<div class="min-h-screen p-4 md:p-6 lg:p-8 pb-10">
         <h1 class="text-2xl font-semibold mb-6">Products</h1>
 
         <div class="bg-white p-5 rounded-lg shadow overflow-hidden">
@@ -13,9 +13,9 @@
             </div>
             <hr class="p-5" />
             <!-- Table -->
-            <div class="overflow-x-auto">
-                <table class="w-full bg-white border border-gray-200" id="productTable">
-                    <thead class="">
+            <div class="">
+                <table class="w-full bg-white border border-gray-200 h-auto" id="productTable">
+                    <thead class="overflow-y-auto">
                         <tr>
                             <th class="px-6 py-3 text-left text-md font-bold">S/L</th>
                             <th class="px-6 py-3 text-left text-md font-bold">Name</th>
@@ -123,7 +123,7 @@
                 ajax: "{{ route('products.list') }}",
                 columns: [{
                         data: 'id',
-                        className: " border border-gray-200"
+                        className: "border border-gray-200"
                     },
                     {
                         data: 'name',
@@ -140,7 +140,7 @@
                 ],
                 lengthMenu: [10, 20, 50, 100],
                 pageLength: 10,
-                dom: 'lBfrtip', // Enables buttons
+                dom: 'lBfrtip',
                 buttons: [{
                         extend: 'copy',
                         text: '<i class="fa-solid fa-copy"></i> Copy',
@@ -167,7 +167,15 @@
                         text: '<i class="fa-solid fa-eye"></i> Column Visibility',
                         className: "table-button-design"
                     }
-                ]
+                ],
+                language: {
+                    paginate: {
+                        first: '<span class="px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">First</span>',
+                        previous: '<span class="px-4 py-3 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Previous</span>',
+                        next: '<span class="px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Next</span>',
+                        last: '<span class="px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Last</span>'
+                    }
+                }
             });
 
             function resetFormErrors() {
@@ -261,8 +269,8 @@
                 });
             });
 
-             // supplier delete method
-             $(document).on("click", ".deleteProduct", function() {
+            // supplier delete method
+            $(document).on("click", ".deleteProduct", function() {
                 let productId = $(this).data("id");
 
                 Swal.fire({

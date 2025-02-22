@@ -1,6 +1,6 @@
 <x-app-layout>
 
-    <div class="max-w-7xl mx-auto mt-10 pb-20">
+    <div class="min-h-screen p-4 md:p-6 lg:p-8">
         <h1 class="text-2xl font-semibold mb-6">Purchase Orders</h1>
 
         <div class="bg-white p-5 rounded-lg shadow overflow-hidden">
@@ -34,14 +34,14 @@
                     </div>
 
                     <div class="col-span-12 md:col-span-2 flex items-end">
-                        <button id="addProduct" class="w-full bg-purple-600 text-white p-2 rounded-md hover:bg-purple-700 transition-colors">Search</button>
+                        <button id="filter_purchases" class="w-full bg-purple-600 text-white p-2 rounded-md hover:bg-purple-700 transition-colors">Search</button>
                     </div>
                 </div>
             </div>
 
             <!-- Table -->
-            <div class="overflow-x-auto">
-                <table class="w-full bg-white border border-gray-200 rounded-lg" id="purchaseTable">
+            <div class="">
+                <table class="overflow-x-auto w-full bg-white border border-gray-200 rounded-lg" id="purchaseTable">
                     <thead>
                         <tr>
                             <th class="px-6 py-3 text-left text-md font-bold">Order No</th>
@@ -77,12 +77,17 @@
     <script>
         $(document).ready(function() {
 
-            $('#purchaseTable').DataTable({
+            let table = $('#purchaseTable').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: {
                     url: "{{ route('purchase.list') }}",
-                    type: "GET"
+                    type: "GET",
+                    data: function(d) {
+                        d.supplier_id = $('#supplier_id').val();
+                        d.start_date = $('#start_date').val();
+                        d.end_date = $('#end_date').val();
+                    }
                 },
 
                 columns: [{
@@ -161,6 +166,14 @@
                         className: "table-button-design"
                     }
                 ],
+                language: {
+                    paginate: {
+                        first: '<span class="px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">First</span>',
+                        previous: '<span class="px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Previous</span>',
+                        next: '<span class="px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Next</span>',
+                        last: '<span class="px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Last</span>'
+                    }
+                },
                 footerCallback: function(row, data, start, end, display) {
                     var api = this.api();
 
@@ -222,6 +235,10 @@
                         alert("Something went wrong!");
                     }
                 });
+            });
+
+            $('#filter_purchases').on('click', function() {
+                table.ajax.reload();
             });
         });
     </script>

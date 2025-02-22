@@ -18,53 +18,9 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <Style>
-        .active {
-            background-color: #2ea745;
-            padding: 2px 5px 2px 5px;
-            color: white;
-            font-weight: bold;
-        }
-
-        .inactive {
-            background-color: red;
-            padding: 2px 5px 2px 5px;
-            color: white;
-            font-weight: bold;
-        }
-
-        .dataTables_length select {
-            width: 60px;
-        }
-
-        .dataTables_length label {
-            color: #792df3 !important;
-            /* Force the color */
-            font-weight: bold;
-        }
-
-        .table-button-design {
-            margin-top: 10px !important;
-            background: #792df3 !important;
-            color: white !important;
-            padding: 8px 16px !important;
-            box-shadow: none !important;
-            border: none !important;
-            font-weight: bold !important;
-            margin-left: 0 !important;
-            margin-right: 0 !important;
-        }
-
-        .dt-buttons {
-            margin: 0 !important;
-            width: 100% !important;
-        }
-
-        .dataTables_filter {
-            padding-bottom: 15px;
-        }
-    </Style>
     
+    <link rel="stylesheet" href="{{ asset('assets/style.css') }}">
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
