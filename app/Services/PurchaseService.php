@@ -40,12 +40,9 @@ class PurchaseService
             ->addColumn('notes', function ($purchase) {
                 return $purchase->notes ?? '-';
             })
-            ->addColumn(
-                'action',
-                fn($purchase) =>
-                '<button class="edit btn btn-sm bg-[#792df3] text-white px-2 py-1 rounded" data-id="' . $purchase->id . '"><i class="fa fa-edit"></i></button>
-                <button class="delete btn btn-sm bg-red-500 text-white px-2 py-1 rounded" data-id="' . $purchase->id . '"><i class="fa fa-trash"></i></button>'
-            )
+            ->addColumn('action', function ($purchase) {
+                return '<a href="' . route('purchase.view', $purchase->id) . '" class="btn btn-sm btn-primary">View</a>';
+            })
             ->make(true);
     }
 
@@ -70,5 +67,11 @@ class PurchaseService
 
             return $purchase;
         });
+    }
+
+    public function getProductById($purchase_id)
+    {
+        return $this->purchaseModel->with('supplier:id,name', 'purchaseDetails.product:id,name')
+            ->findOrFail($purchase_id);
     }
 }

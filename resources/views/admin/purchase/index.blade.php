@@ -58,6 +58,15 @@
                     <tbody class="divide-y divide-gray-200">
 
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="3" class="px-6 py-3 font-bold">Total</th>
+                            <th class="px-6 py-3 text-left text-md font-bold">0</th>
+                            <th class="px-6 py-3 text-left text-md font-bold">0</th>
+                            <th class="px-6 py-3 text-left text-md font-bold">0</th>
+                            <th colspan="3" class="px-6 py-3 text-left text-md font-bold"></th>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
 
@@ -239,7 +248,30 @@
                         text: '<i class="fa-solid fa-eye"></i> Column Visibility',
                         className: "table-button-design"
                     }
-                ]
+                ],
+                footerCallback: function(row, data, start, end, display) {
+                    var api = this.api();
+
+                    var intVal = function(i) {
+                        return typeof i === 'string' ?
+                            i.replace(/[\$,]/g, '') * 1 :
+                            typeof i === 'number' ?
+                            i :
+                            0;
+                    };
+
+                    var totalTotal = api.column(3, {
+                        page: 'current'
+                    }).data().reduce((a, b) => intVal(a) + intVal(b), 0);
+                    var totalPaid = api.column(4, {
+                        page: 'current'
+                    }).data().reduce((a, b) => intVal(a) + intVal(b), 0);
+                    var totalDue = totalTotal - totalPaid;
+
+                    $(api.column(3).footer()).html(totalTotal.toFixed(2)); // Total
+                    $(api.column(4).footer()).html(totalPaid.toFixed(2)); // Paid
+                    $(api.column(5).footer()).html(totalDue.toFixed(2)); // Due
+                }
             });
 
 

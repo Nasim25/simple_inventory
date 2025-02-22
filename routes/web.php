@@ -34,6 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::controller(PurchaseController::class)->prefix('purchase')->group(function () {
         Route::get('/', 'index')->name('purchase.index');
         Route::get('/create', 'create')->name('purchase.create');
+        Route::get('/view/{id}', 'getProductById')->name('purchase.view');
         Route::get('/list', 'getPurchases')->name('purchase.list');
         Route::post('/store', 'store')->name('purchase.store');
     });

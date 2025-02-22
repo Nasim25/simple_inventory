@@ -53,4 +53,11 @@ class PurchaseController extends Controller
             };
         }
     }
+
+    public function getProductById($id)
+    {
+        $purchases = $this->purchaseService->getProductById($id);
+        
+        return view('admin.purchase.view', compact('purchases'));
+    }
 }
