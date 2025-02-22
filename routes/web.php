@@ -32,6 +32,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/', 'index')->name('products.index');
         Route::get('/list', 'getProducts')->name('products.list');
         Route::post('/store', 'store')->name('products.store');
+        Route::get('/edit/{id}', 'edit')->name('products.edit');
+        Route::put('/update/{id}', 'update')->name('products.update');
+        Route::delete('/delete/{id}', 'destroy')->name('products.destroy');
     });
 
     Route::controller(PurchaseController::class)->prefix('purchase')->group(function () {

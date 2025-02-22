@@ -23,8 +23,8 @@ class ProductService
             ->addColumn(
                 'action',
                 fn($product) =>
-                '<button class="edit btn btn-sm bg-[#792df3] text-white px-2 py-1 rounded" data-id="' . $product->id . '"><i class="fa fa-edit"></i></button>
-                <button class="delete btn btn-sm bg-red-500 text-white px-2 py-1 rounded" data-id="' . $product->id . '"><i class="fa fa-trash"></i></button>'
+                '<button class="editProduct btn btn-sm bg-[#792df3] text-white px-2 py-1 rounded" data-id="' . $product->id . '"><i class="fa fa-edit"></i></button>
+                <button class="deleteProduct btn btn-sm bg-red-500 text-white px-2 py-1 rounded" data-id="' . $product->id . '"><i class="fa fa-trash"></i></button>'
             )
             ->rawColumns(['status', 'action'])
             ->make(true);
@@ -33,5 +33,24 @@ class ProductService
     public function createProduct(array $data): Product
     {
         return $this->product->create($data);
+    }
+
+    public function getProductById(int $id): Product
+    {
+        return $this->product->findOrFail($id);
+    }
+
+    public function updateSupplier(array $data, int $id): bool
+    {
+        $product = $this->getProductById($id);
+
+        return $product->update($data);
+    }
+
+    public function deleteSupplier(int $id): bool
+    {
+        $product = $this->getProductById($id);
+
+        return $product->delete();
     }
 }

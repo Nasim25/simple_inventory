@@ -246,7 +246,7 @@
                     url: `/supplier/edit/${supplierId}`,
                     type: "GET",
                     success: function(response) {
-                        console.log(response.supplier);
+    
                         $("#supplierForm input[name='name']").val(response.supplier.name);
                         $("#supplierForm input[name='phone']").val(response.supplier.phone);
                         $("#supplierForm input[name='email']").val(response.supplier.email);

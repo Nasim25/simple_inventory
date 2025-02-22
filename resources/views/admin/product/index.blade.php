@@ -42,7 +42,7 @@
             </div>
 
             <!-- Modal Body -->
-            <form id="supplierForm">
+            <form id="productForm">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="space-y-4">
                     <!-- Name -->
@@ -97,6 +97,8 @@
         $(document).ready(function() {
 
             $("#openModalBtn").click(function() {
+                $("#productForm")[0].reset();
+                $("#productForm").removeAttr("data-id");
                 $("#myModal").removeClass("hidden");
             });
 
@@ -168,6 +170,34 @@
                 ]
             });
 
+            function resetFormErrors() {
+                $(".error").remove(); // Remove error messages
+                $("input, textarea").removeClass("border-red-500"); // Reset input styles
+            }
+            // Open Edit Modal and Populate Data
+            $(document).on("click", ".editProduct", function() {
+                resetFormErrors();
+                let productId = $(this).data("id");
+
+                $.ajax({
+                    url: `/products/edit/${productId}`,
+                    type: "GET",
+                    success: function(response) {
+                        $("#productForm input[name='name']").val(response.product.name);
+                        $("input[name='status'][value='" + response.product.status + "']").prop("checked", true);
+                        $("#productForm").attr("data-id", productId); // Set form data-id attribute
+                        $("#myModal").removeClass("hidden");
+                    },
+                    error: function() {
+                        Swal.fire({
+                            title: "Errod!",
+                            text: "Soemthing went wrong!",
+                            icon: "error",
+                            confirmButtonText: "OK"
+                        });
+                    }
+                });
+            });
 
 
             $.ajaxSetup({
@@ -177,21 +207,28 @@
             });
 
 
-            $("#supplierForm").submit(function(e) {
+            $("#productForm").submit(function(e) {
                 e.preventDefault();
 
+                let productId = $(this).attr("data-id") || null;
                 let formData = new FormData(this);
-                formData.append("_token", $("input[name='_token']").val());
+
+                if (productId) {
+                    formData.append("_method", "PUT");
+                }
+
+                let url = productId ? `/products/update/${productId}` : "{{ route('products.store') }}";
+                let method = "POST";
 
                 $.ajax({
-                    url: "{{ route('products.store') }}",
-                    type: "POST",
+                    url: url,
+                    type: method,
                     data: formData,
                     processData: false,
                     contentType: false,
                     success: function(response) {
                         $("#myModal").addClass("hidden");
-                        $("#supplierForm")[0].reset();
+                        $("#productForm")[0].reset();
                         Swal.fire({
                             title: "Success!",
                             text: "Product created successfully!",
@@ -201,7 +238,57 @@
                         table.ajax.reload(null, false);
                     },
                     error: function(xhr) {
-                        alert("Something went wrong!");
+                        if (xhr.status === 422) {
+                            resetFormErrors();
+                            let errors = xhr.responseJSON.errors;
+
+                            $.each(errors, function(field, messages) {
+                                let inputField = $(`[name="${field}"]`);
+
+                                inputField.addClass("border-red-500");
+
+                                inputField.after(`<span class=" text-sm text-red-600 error ">${messages[0]}</span>`);
+                            });
+                        } else {
+                            Swal.fire({
+                                title: "Errod!",
+                                text: "Soemthing went wrong!",
+                                icon: "error",
+                                confirmButtonText: "OK"
+                            });
+                        }
+                    }
+                });
+            });
+
+             // supplier delete method
+             $(document).on("click", ".deleteProduct", function() {
+                let productId = $(this).data("id");
+
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#3085d6",
+                    confirmButtonText: "Yes, delete it!"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: `/products/delete/${productId}`,
+                            type: "DELETE",
+                            data: {
+                                _token: "{{ csrf_token() }}" // Add CSRF token if needed
+                            },
+                            success: function(response) {
+                                Swal.fire("Deleted!", "Product has been deleted.", "success");
+                                table.ajax.reload(null, false); // Reload table without refresh
+                            },
+                            error: function(xhr) {
+                                Swal.fire("Error!", "Something went wrong!", "error");
+                            }
+                        });
                     }
                 });
             });
