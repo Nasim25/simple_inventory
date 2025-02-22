@@ -17,8 +17,8 @@ class SupplierService
             ->editColumn(
                 'status',
                 fn($supplier) => $supplier->status
-                    ? '<span class="text-bold text-sm p-1 rounded-md bg-blue-500 ">Active</span>'
-                    : '<span class="text-white text-sm bg-red-500 p-1 rounded-md">Inactive</span>'
+                    ? '<span class="text-bold text-sm p-1 rounded-md active">Active</span>'
+                    : '<span class="text-white text-sm inactive p-1 rounded-md">Inactive</span>'
             )
             ->addColumn(
                 'action',

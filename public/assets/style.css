@@ -1,0 +1,29 @@
+.dataTables_length select {
+    width: 60px;
+}
+.dataTables_length label {
+    color: #792df3 !important;
+    /* Force the color */
+    font-weight: bold;
+}
+
+.table-button-design {
+    margin-top: 10px !important;
+    background: #792df3 !important;
+    color: white !important;
+    padding: 8px 16px !important;
+    box-shadow: none !important;
+    border: none !important;
+    font-weight: bold !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+.dt-buttons {
+    margin: 0 !important;
+    width: 100% !important;
+}
+
+.dataTables_filter {
+    padding-bottom: 15px;
+}

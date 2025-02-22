@@ -1,15 +1,4 @@
 <x-app-layout>
-
-    <style>
-        .dropdown:hover .dropdown-menu {
-            display: block;
-        }
-
-        .dataTables_length select {
-            width: 60px;
-        }
-    </style>
-
     <div class="max-w-7xl mx-auto mt-10 ">
         <h1 class="text-2xl font-semibold mb-6">Supplier</h1>
 
@@ -23,57 +12,10 @@
             </div>
             <hr class="p-5" />
 
-            <!-- Table Controls -->
-            <div class="flex flex-wrap gap-4 mb-4 items-center">
-
-                <div class="flex gap-2">
-                    <button class="px-3 py-1 bg-[#792df3] text-white rounded hover:bg-purple-700">Copy</button>
-                    <button class="px-3 py-1 bg-[#792df3] text-white rounded hover:bg-purple-700">Export to CSV</button>
-                    <button class="px-3 py-1 bg-[#792df3] text-white rounded hover:bg-purple-700">Export to Excel</button>
-                    <button class="px-3 py-1 bg-[#792df3] text-white rounded hover:bg-purple-700">Print</button>
-
-                    <!-- Column Visibility Dropdown -->
-                    <div class="dropdown relative">
-                        <button class="px-3 py-1 bg-[#792df3] text-white rounded hover:bg-purple-700">
-                            Column visibility ▼
-                        </button>
-                        <div class="dropdown-menu hidden absolute left-0 mt-1 w-48 bg-white rounded-md shadow-lg border border-gray-200 z-50">
-                            <div class="p-2 space-y-2">
-                                <label class="flex items-center space-x-2">
-                                    <input type="checkbox" checked class="rounded border-gray-300">
-                                    <span>Name</span>
-                                </label>
-                                <label class="flex items-center space-x-2">
-                                    <input type="checkbox" checked class="rounded border-gray-300">
-                                    <span>Mobile No</span>
-                                </label>
-                                <label class="flex items-center space-x-2">
-                                    <input type="checkbox" checked class="rounded border-gray-300">
-                                    <span>Email</span>
-                                </label>
-                                <label class="flex items-center space-x-2">
-                                    <input type="checkbox" checked class="rounded border-gray-300">
-                                    <span>Address</span>
-                                </label>
-                                <label class="flex items-center space-x-2">
-                                    <input type="checkbox" checked class="rounded border-gray-300">
-                                    <span>Status</span>
-                                </label>
-                                <label class="flex items-center space-x-2">
-                                    <input type="checkbox" checked class="rounded border-gray-300">
-                                    <span>Action</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
             <!-- Table -->
             <div class="overflow-x-auto">
                 <table class="w-full bg-white border border-gray-200 rounded-lg" id="supplierTable">
-                    <thead class="bg-gray-50">
+                    <thead>
                         <tr>
                             <th class="px-6 py-3 text-left text-md font-bold">S/L</th>
                             <th class="px-6 py-3 text-left text-md font-bold">Name</th>
@@ -89,20 +31,6 @@
                     </tbody>
                 </table>
             </div>
-
-            <!-- Pagination -->
-            <!-- <div class="flex items-center justify-between mt-4">
-                <div class="text-sm text-gray-700">
-                    Showing 1 to 10 of 50 entries
-                </div>
-                <div class="flex gap-2">
-                    <button class="px-3 py-1 border rounded hover:bg-gray-50">Previous</button>
-                    <button class="px-3 py-1 bg-purple-600 text-white rounded">1</button>
-                    <button class="px-3 py-1 border rounded hover:bg-gray-50">2</button>
-                    <button class="px-3 py-1 border rounded hover:bg-gray-50">3</button>
-                    <button class="px-3 py-1 border rounded hover:bg-gray-50">Next</button>
-                </div>
-            </div> -->
         </div>
     </div>
 
@@ -239,25 +167,63 @@
                 serverSide: true,
                 ajax: "{{ route('suppliers.list') }}",
                 columns: [{
-                        data: 'id'
+                        data: 'id',
+                        className: " border border-gray-200"
                     },
                     {
-                        data: 'name'
+                        data: 'name',
+                        className: " border border-gray-200"
                     },
                     {
-                        data: 'phone'
+                        data: 'phone',
+                        className: " border border-gray-200"
                     },
                     {
-                        data: 'email'
+                        data: 'email',
+                        className: " border border-gray-200",
+                        className: " border border-gray-200"
                     },
                     {
-                        data: 'address'
+                        data: 'address',
+                        className: " border border-gray-200"
                     },
                     {
                         data: 'status',
+                        className: " border border-gray-200"
                     },
                     {
                         data: 'action',
+                        className: " border border-gray-200"
+                    }
+                ],
+                lengthMenu: [10, 20, 50, 100],
+                pageLength: 10,
+                dom: 'lBfrtip', // Enables buttons
+                buttons: [{
+                        extend: 'copy',
+                        text: '<i class="fa-solid fa-copy"></i> Copy',
+                        className: "table-button-design"
+                    },
+                    {
+                        extend: 'csv',
+                        text: '<i class="fa-solid fa-file-csv"></i> Export to CSV',
+                        className: "custom-button",
+                        className: "table-button-design"
+                    },
+                    {
+                        extend: 'excel',
+                        text: '<i class="fa-solid fa-file-excel"></i> Export to Excel',
+                        className: "table-button-design"
+                    },
+                    {
+                        extend: 'print',
+                        text: '<i class="fa-solid fa-print"></i> Print',
+                        className: "table-button-design"
+                    },
+                    {
+                        extend: 'colvis',
+                        text: '<i class="fa-solid fa-eye"></i> Column Visibility',
+                        className: "table-button-design"
                     }
                 ]
             });

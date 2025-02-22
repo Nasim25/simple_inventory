@@ -1,53 +1,5 @@
 <x-app-layout>
 
-    <style>
-        .dropdown:hover .dropdown-menu {
-            display: block;
-        }
-
-        .dataTables_length select {
-            width: 60px;
-        }
-
-        .product_active {
-            background-color: #2ea745;
-            padding: 2px 5px 2px 5px;
-            color: white;
-            font-weight: bold;
-        }
-
-        .product_inactive {
-            background-color: red;
-            padding: 2px 5px 2px 5px;
-            color: white;
-            font-weight: bold;
-        }
-
-         .dataTables_length label {
-            color: #792df3 !important;
-            /* Force the color */
-            font-weight: bold;
-        }
-
-        .table-button-design {
-            margin-top: 10px !important;
-            background: #792df3 !important;
-            color: white !important;
-            padding: 8px 16px !important;
-            /* border-radius: 6px !important; */
-            box-shadow: none !important;
-            border: none !important;
-            font-weight: bold !important;
-            margin-left: 0 !important;
-            margin-right: 0 !important;
-        }
-
-        .dt-buttons {
-            margin: 0 !important;
-            width: 100% !important;
-        }
-    </style>
-
     <div class="max-w-7xl mx-auto mt-10">
         <h1 class="text-2xl font-semibold mb-6">Products</h1>
 
@@ -60,42 +12,6 @@
                 </button>
             </div>
             <hr class="p-5" />
-
-            <!-- Table Controls -->
-            <div class="flex flex-wrap gap-4 mb-4 items-center">
-
-                <div class="flex gap-2">
-                    <button class="px-3 py-1 bg-[#792df3] text-white rounded hover:bg-purple-700">Copy</button>
-                    <button class="px-3 py-1 bg-[#792df3] text-white rounded hover:bg-purple-700">Export to CSV</button>
-                    <button class="px-3 py-1 bg-[#792df3] text-white rounded hover:bg-purple-700">Export to Excel</button>
-                    <button class="px-3 py-1 bg-[#792df3] text-white rounded hover:bg-purple-700">Print</button>
-
-                    <!-- Column Visibility Dropdown -->
-                    <div class="dropdown relative">
-                        <button class="px-3 py-1 bg-[#792df3] text-white rounded hover:bg-purple-700">
-                            Column visibility ▼
-                        </button>
-                        <div class="dropdown-menu hidden absolute left-0 mt-1 w-48 bg-white rounded-md shadow-lg border border-gray-200 z-50">
-                            <div class="p-2 space-y-2">
-                                <label class="flex items-center space-x-2">
-                                    <input type="checkbox" checked class="rounded border-gray-300">
-                                    <span>Name</span>
-                                </label>
-                                <label class="flex items-center space-x-2">
-                                    <input type="checkbox" checked class="rounded border-gray-300">
-                                    <span>Status</span>
-                                </label>
-                                <label class="flex items-center space-x-2">
-                                    <input type="checkbox" checked class="rounded border-gray-300">
-                                    <span>Action</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
             <!-- Table -->
             <div class="overflow-x-auto">
                 <table class="w-full bg-white border border-gray-200" id="productTable">
@@ -234,28 +150,28 @@
                 dom: 'lBfrtip', // Enables buttons
                 buttons: [{
                         extend: 'copy',
-                        text: 'Copy',
+                        text: '<i class="fa-solid fa-copy"></i> Copy',
                         className: "table-button-design"
                     },
                     {
                         extend: 'csv',
-                        text: 'Export to CSV',
+                        text: '<i class="fa-solid fa-file-csv"></i> Export to CSV',
                         className: "custom-button",
                         className: "table-button-design"
                     },
                     {
                         extend: 'excel',
-                        text: 'Export to Excel',
+                        text: '<i class="fa-solid fa-file-excel"></i> Export to Excel',
                         className: "table-button-design"
                     },
                     {
                         extend: 'print',
-                        text: '🖨️ Print',
+                        text: '<i class="fa-solid fa-print"></i> Print',
                         className: "table-button-design"
                     },
                     {
                         extend: 'colvis',
-                        text: 'Column Visibility',
+                        text: '<i class="fa-solid fa-eye"></i> Column Visibility',
                         className: "table-button-design"
                     }
                 ]

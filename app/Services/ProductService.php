@@ -17,8 +17,8 @@ class ProductService
             ->editColumn(
                 'status',
                 fn($product) => $product->status
-                    ? '<span class="text-bold text-sm p-1 rounded-md product_active ">Active</span>'
-                    : '<span class="text-sm product_inactive p-1 rounded-md">Inactive</span>'
+                    ? '<span class="text-bold text-sm p-1 rounded-md active ">Active</span>'
+                    : '<span class="text-sm inactive p-1 rounded-md">Inactive</span>'
             )
             ->addColumn(
                 'action',

@@ -1,29 +1,5 @@
 <x-app-layout>
 
-    <style>
-        .dropdown:hover .dropdown-menu {
-            display: block;
-        }
-
-        .dataTables_length select {
-            width: 60px;
-        }
-
-        .product_active {
-            background-color: #2ea745;
-            padding: 2px 5px 2px 5px;
-            color: white;
-            font-weight: bold;
-        }
-
-        .product_inactive {
-            background-color: red;
-            padding: 2px 5px 2px 5px;
-            color: white;
-            font-weight: bold;
-        }
-    </style>
-
     <div class="max-w-7xl mx-auto mt-10">
         <h1 class="text-2xl font-semibold mb-6">Purchase Orders</h1>
 
@@ -61,42 +37,12 @@
                         <button id="addProduct" class="w-full bg-purple-600 text-white p-2 rounded-md hover:bg-purple-700 transition-colors">Search</button>
                     </div>
                 </div>
-                <div class="flex gap-2">
-                    <button class="px-3 py-1 bg-[#792df3] text-white rounded hover:bg-purple-700">Copy</button>
-                    <button class="px-3 py-1 bg-[#792df3] text-white rounded hover:bg-purple-700">Export to CSV</button>
-                    <button class="px-3 py-1 bg-[#792df3] text-white rounded hover:bg-purple-700">Export to Excel</button>
-                    <button class="px-3 py-1 bg-[#792df3] text-white rounded hover:bg-purple-700">Print</button>
-
-                    <!-- Column Visibility Dropdown -->
-                    <div class="dropdown relative">
-                        <button class="px-3 py-1 bg-[#792df3] text-white rounded hover:bg-purple-700">
-                            Column visibility ▼
-                        </button>
-                        <div class="dropdown-menu hidden absolute left-0 mt-1 w-48 bg-white rounded-md shadow-lg border border-gray-200 z-50">
-                            <div class="p-2 space-y-2">
-                                <label class="flex items-center space-x-2">
-                                    <input type="checkbox" checked class="rounded border-gray-300">
-                                    <span>Name</span>
-                                </label>
-                                <label class="flex items-center space-x-2">
-                                    <input type="checkbox" checked class="rounded border-gray-300">
-                                    <span>Status</span>
-                                </label>
-                                <label class="flex items-center space-x-2">
-                                    <input type="checkbox" checked class="rounded border-gray-300">
-                                    <span>Action</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
 
             <!-- Table -->
             <div class="overflow-x-auto">
                 <table class="w-full bg-white border border-gray-200 rounded-lg" id="purchaseTable">
-                    <thead class="bg-gray-50">
+                    <thead>
                         <tr>
                             <th class="px-6 py-3 text-left text-md font-bold">Order No</th>
                             <th class="px-6 py-3 text-left text-md font-bold">Date</th>
@@ -220,39 +166,78 @@
 
                 columns: [{
                         data: "id",
-                        title: "Order No"
+                        title: "Order No",
+                        className: "border border-gray-200"
                     },
                     {
                         data: "date",
-                        title: "Date"
+                        title: "Date",
+                        className: "border border-gray-200"
                     },
                     {
                         data: "supplier",
-                        title: "Supplier"
+                        title: "Supplier",
+                        className: "border border-gray-200"
                     },
                     {
                         data: "total",
-                        title: "Total"
+                        title: "Total",
+                        className: "border border-gray-200"
                     },
                     {
                         data: "paid",
-                        title: "Paid"
+                        title: "Paid",
+                        className: "border border-gray-200"
                     },
                     {
                         data: "total",
-                        title: "Due"
+                        title: "Due",
+                        className: "border border-gray-200"
                     },
                     {
                         data: "status",
-                        title: "Status"
+                        title: "Status",
+                        className: "border border-gray-200"
                     },
                     {
                         data: "notes",
-                        title: "Notes"
+                        title: "Notes",
+                        className: "border border-gray-200"
                     },
                     {
                         data: "action",
-                        title: "Action"
+                        title: "Action",
+                        className: "border border-gray-200"
+                    }
+                ],
+                lengthMenu: [10, 20, 50, 100],
+                pageLength: 10,
+                dom: 'lBfrtip', // Enables buttons
+                buttons: [{
+                        extend: 'copy',
+                        text: '<i class="fa-solid fa-copy"></i> Copy',
+                        className: "table-button-design"
+                    },
+                    {
+                        extend: 'csv',
+                        text: '<i class="fa-solid fa-file-csv"></i> Export to CSV',
+                        className: "custom-button",
+                        className: "table-button-design"
+                    },
+                    {
+                        extend: 'excel',
+                        text: '<i class="fa-solid fa-file-excel"></i> Export to Excel',
+                        className: "table-button-design"
+                    },
+                    {
+                        extend: 'print',
+                        text: '<i class="fa-solid fa-print"></i> Print',
+                        className: "table-button-design"
+                    },
+                    {
+                        extend: 'colvis',
+                        text: '<i class="fa-solid fa-eye"></i> Column Visibility',
+                        className: "table-button-design"
                     }
                 ]
             });
