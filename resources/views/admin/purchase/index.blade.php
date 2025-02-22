@@ -108,17 +108,26 @@
                     {
                         data: "total",
                         title: "Total",
-                        className: "border border-gray-200"
+                        className: "border border-gray-200",
+                        render: function(data, type, row) {
+                            return parseFloat(data).toFixed(2);
+                        }
                     },
                     {
                         data: "paid",
                         title: "Paid",
-                        className: "border border-gray-200"
+                        className: "border border-gray-200",
+                        render: function(data, type, row) {
+                            return parseFloat(data).toFixed(2);
+                        }
                     },
                     {
                         data: "total",
                         title: "Due",
-                        className: "border border-gray-200"
+                        className: "border border-gray-200",
+                        render: function(data, type, row) {
+                            return (parseFloat(row.total) - parseFloat(row.paid)).toFixed(2);
+                        }
                     },
                     {
                         data: "status",
