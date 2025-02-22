@@ -1,6 +1,6 @@
 <x-app-layout>
 
-    <div class="max-w-5xl mx-auto">
+    <div class="max-w-5xl mx-auto mb-10">
         <div class="flex justify-between items-center my-6">
             <h1 class="text-2xl font-semibold text-gray-800">Purchase Orders Details</h1>
         </div>

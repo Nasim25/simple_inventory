@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="max-w-7xl mx-auto mt-10 ">
+    <div class="max-w-7xl mx-auto mt-10 pb-20">
         <h1 class="text-2xl font-semibold mb-6">Supplier</h1>
 
         <div class="bg-white p-5 rounded-lg shadow overflow-hidden">

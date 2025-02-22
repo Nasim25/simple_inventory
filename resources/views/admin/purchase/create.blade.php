@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="min-h-screen p-4 md:p-6 lg:p-8">
+    <div class="min-h-screen p-4 md:p-6 lg:p-8 pb-10">
         <h1 class="text-2xl font-semibold text-gray-900 mb-6">Purchase Create</h1>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
