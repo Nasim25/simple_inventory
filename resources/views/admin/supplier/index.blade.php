@@ -154,7 +154,6 @@
 
             // Close Modal
             $("#closeModalBtn, #myModal").click(function(event) {
-                // Close only if clicked outside modal content
                 if ($(event.target).is("#myModal") || $(event.target).is("#closeModalBtn")) {
                     $("#myModal").addClass("hidden");
                 }
@@ -243,7 +242,7 @@
 
             function resetFormErrors() {
                 $(".error").remove(); // Remove error messages
-                $("input, textarea").removeClass("border-red-500"); // Reset input styles
+                $("input, textarea").removeClass("border-red-500");
             }
             // Open Edit Modal and Populate Data
             $(document).on("click", ".editSupplier", function() {
@@ -348,7 +347,7 @@
                             url: `/supplier/delete/${supplierId}`,
                             type: "DELETE",
                             data: {
-                                _token: "{{ csrf_token() }}" // Add CSRF token if needed
+                                _token: "{{ csrf_token() }}"
                             },
                             success: function(response) {
                                 Swal.fire("Deleted!", "Supplier has been deleted.", "success");

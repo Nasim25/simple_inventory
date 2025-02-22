@@ -138,7 +138,7 @@
                 ],
                 lengthMenu: [10, 20, 50, 100],
                 pageLength: 10,
-                dom: 'lBfrtip', // Enables buttons
+                dom: 'lBfrtip',
                 buttons: [{
                         extend: 'copy',
                         text: '<i class="fa-solid fa-copy"></i> Copy',

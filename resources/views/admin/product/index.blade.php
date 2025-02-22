@@ -104,7 +104,6 @@
 
             // Close Modal
             $("#closeModalBtn, #myModal").click(function(event) {
-                // Close only if clicked outside modal content
                 if ($(event.target).is("#myModal") || $(event.target).is("#closeModalBtn")) {
                     $("#myModal").addClass("hidden");
                 }

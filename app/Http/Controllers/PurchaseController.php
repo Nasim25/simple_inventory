@@ -4,13 +4,10 @@ namespace App\Http\Controllers;
 
 use Throwable;
 use App\Models\Product;
-use App\Models\Purchase;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
-use App\Models\PurchaseDetail;
 use App\Services\PurchaseService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StorePurchaseRequest;
 
 class PurchaseController extends Controller
@@ -57,7 +54,7 @@ class PurchaseController extends Controller
     public function getProductById($id)
     {
         $purchases = $this->purchaseService->getProductById($id);
-        
+
         return view('admin.purchase.view', compact('purchases'));
     }
 }

@@ -19,7 +19,7 @@ class StorePurchaseRequest extends FormRequest
             'notes' => 'nullable|string',
             'cart' => 'required|array',
             'cart.*.id' => 'required|exists:products,id',
-            'cart.*.qty' => 'required|integer|min:1', // ✅ Corrected
+            'cart.*.qty' => 'required|integer|min:1',
             'cart.*.unitPrice' => 'required|numeric|min:0',
             'cart.*.totalPrice' => 'required|numeric|min:0',
         ];

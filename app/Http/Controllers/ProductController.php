@@ -12,9 +12,6 @@ class ProductController extends Controller
         private ProductService $productService
     ) {}
 
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         return view('admin.product.index');

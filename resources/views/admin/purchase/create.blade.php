@@ -23,7 +23,6 @@
                         <div class="col-span-6 md:col-span-3">
                             <label class="block text-sm font-medium text-gray-700 mb-1">Qty <span class="text-red-500">*</span></label>
                             <input type="number" id="qty" name="input_qty" placeholder="Qty" class="w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500">
-                            <!-- <span class=" text-sm text-red-600 error ">Field is required</span> -->
                         </div>
 
                         <div class="col-span-6 md:col-span-2">
